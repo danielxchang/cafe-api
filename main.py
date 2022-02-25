@@ -98,10 +98,11 @@ def update_price():
 
 
 # HTTP DELETE - Delete Record
-@app.route('/report-closed/<int:cafe_id>', methods=['DELETE'])
-def delete_cafe(cafe_id):
+@app.route('/report-closed', methods=['DELETE'])
+def delete_cafe():
+    print("DELETING")
     if request.args.get('api-key') == api_key:
-        if cafe := Cafe.query.get(cafe_id):
+        if cafe := Cafe.query.get(request.args.get('cafe_id')):
             db.session.delete(cafe)
             db.session.commit()
             return jsonify(response={
