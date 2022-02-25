@@ -83,9 +83,9 @@ def post_new_cafe():
 
 
 # HTTP PUT/PATCH - Update Record
-@app.route("/update-price/<int:cafe_id>", methods=['PATCH'])
-def update_price(cafe_id):
-    if cafe := Cafe.query.get(cafe_id):
+@app.route("/update-price", methods=['PATCH'])
+def update_price():
+    if cafe := Cafe.query.get(request.args.get('cafe_id')):
         cafe.coffee_price = request.args.get('new_price')
         db.session.commit()
         return jsonify(response={
